@@ -100,6 +100,7 @@ class MaterialBanner extends StatefulWidget {
     this.contentTextStyle,
     required this.actions,
     this.elevation,
+    this.margin,
     this.leading,
     this.backgroundColor,
     this.surfaceTintColor,
@@ -144,6 +145,12 @@ class MaterialBanner extends StatefulWidget {
   /// If the elevation is 0, the [Scaffold]'s body will be pushed down by the
   /// MaterialBanner when used with [ScaffoldMessenger].
   final double? elevation;
+
+  /// The space outside the [MaterialBanner].
+  ///
+  ///If no margin is set, the default margin bottom is used based on the elevation:
+  /// EdgeInsets.only(bottom: elevation > 0 ? 10.0 : 0.0)
+  final EdgeInsetsGeometry? margin;
 
   /// The (optional) leading widget of the [MaterialBanner].
   ///
@@ -237,6 +244,7 @@ class MaterialBanner extends StatefulWidget {
       contentTextStyle: contentTextStyle,
       actions: actions,
       elevation: elevation,
+      margin: margin,
       leading: leading,
       backgroundColor: backgroundColor,
       padding: padding,
@@ -337,7 +345,7 @@ class _MaterialBannerState extends State<MaterialBanner> {
         ?? defaults.contentTextStyle;
 
     Widget materialBanner = Container(
-      margin: EdgeInsets.only(bottom: elevation > 0 ? 10.0 : 0.0),
+      margin: widget.margin ?? EdgeInsets.only(bottom: elevation > 0 ? 10.0 : 0.0),
       child: Material(
         elevation: elevation,
         color: backgroundColor,
